@@ -52,13 +52,13 @@ proc validate_material_library {lib_path required_materials} {
 
 set SIGRITY_ROOT [find_sigrity_root]
 set MATERIAL_LIB_PATH "$SIGRITY_ROOT/share/pcb/text/material.cmx"
-set REQUIRED_MATERIALS {!RTF !HVLP !TEST}
+set REQUIRED_MATERIALS {!RTF !HVLP}
 
 validate_material_library $MATERIAL_LIB_PATH $REQUIRED_MATERIALS
 
 puts "Sigrity root: $SIGRITY_ROOT"
-puts "Updating all conductor layers to material: !RTF"
 
+puts "Updating all conductor layers to material: !RTF"
 # refer to: C:/Cadence/Sigrity2023.1/doc/pdc_ug/c9_TCL_Via_Material_Assignment_Commands.html
 if {[catch {sigrity::update layer model_name {!RTF} {all conductor layers} {!}} result]} {
     puts "ERROR: Command failed with message: $result"
@@ -66,3 +66,16 @@ if {[catch {sigrity::update layer model_name {!RTF} {all conductor layers} {!}} 
 } else {
     puts "Result: $result"
 }
+
+if {[catch {sigrity::update option -treatPadAsShape {1}} result]} {
+    puts "ERROR: Command failed with message: $result"
+} else {
+    puts "Enabled treatPadAsShape option"
+}
+
+if {[catch {sigrity::update option -makePadsEquipotential {1}} result]} {
+    puts "ERROR: Command failed with message: $result"
+} else {
+    puts "Enabled makePadsEquipotential option"
+}
+
