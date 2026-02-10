@@ -64,7 +64,7 @@ if {[catch {sigrity::update layer model_name {!RTF} {all conductor layers} {!}} 
     puts "ERROR: Command failed with message: $result"
     # TODO: handle
 } else {
-    puts "Result: $result"
+    puts "Set all conductor layers to material: !RTF"
 }
 
 if {[catch {sigrity::update option -treatPadAsShape {1}} result]} {
